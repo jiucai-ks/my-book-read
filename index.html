@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>浅绿时光 | 个人部落格</title>
-    <!-- 柔和风格，无外部依赖，纯原生实现 -->
+    <title>浅绿时光 | 个人部落格 · 详情阅读</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +12,6 @@
         }
 
         body {
-            /* 浅绿色马卡龙色系背景：马卡龙浅绿基调，柔和不刺眼 */
             background: linear-gradient(145deg, #d4f1e9 0%, #b9e4d3 100%);
             font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
             min-height: 100vh;
@@ -21,7 +19,6 @@
             color: #2c3e2f;
         }
 
-        /* 整体布局容器: 左侧导航 + 中央内容区 并排 */
         .blog-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -29,13 +26,12 @@
             flex-wrap: wrap;
             gap: 32px;
             position: relative;
-            backdrop-filter: blur(0px);
         }
 
-        /* ========= 左侧导航栏：奶白色半透明 ========= */
+        /* 左侧导航栏：奶白色半透明 */
         .nav-sidebar {
             flex: 0 0 260px;
-            background: rgba(255, 248, 235, 0.75);   /* 奶白色基调，半透明 */
+            background: rgba(255, 248, 235, 0.75);
             backdrop-filter: blur(12px);
             border-radius: 36px;
             padding: 2rem 1.5rem;
@@ -47,7 +43,6 @@
             transition: all 0.2s ease;
         }
 
-        /* 导航菜单列表 */
         .nav-menu {
             list-style: none;
             display: flex;
@@ -73,9 +68,9 @@
             background: rgba(255, 250, 240, 0.3);
             text-align: center;
             font-family: inherit;
+            cursor: pointer;
         }
 
-        /* 导航悬停效果 */
         .nav-link:hover {
             background: rgba(255, 248, 225, 0.9);
             color: #2a6b4e;
@@ -83,9 +78,6 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
-        /* 当前页面高亮（简单用js动态添加类，这里可以不用，但为了美观加个active示例，不过用户可交互）
-           默认只做样式，后续点击切换高亮用纯前端模拟单页? 既然要求部落格主要部分内容，采用伪静态展示首页/关于/分类。
-           为了简单且优雅，点击导航通过js切换中央区域内容。保留部落格感觉。 */
         .nav-link.active {
             background: #f8f0e0dd;
             color: #2c7a5a;
@@ -94,7 +86,7 @@
             border-left: 4px solid #86c8a8;
         }
 
-        /* 部落格中央主要区域 */
+        /* 中央区域 */
         .blog-main {
             flex: 1;
             min-width: 260px;
@@ -107,7 +99,6 @@
             transition: all 0.2s;
         }
 
-        /* 文章卡片样式 / 内容样式 */
         .content-pane {
             animation: fadeIn 0.35s ease-out;
         }
@@ -117,7 +108,6 @@
             100% { opacity: 1; transform: translateY(0);}
         }
 
-        /* 部落格标题区 */
         .blog-header {
             margin-bottom: 2rem;
             border-bottom: 2px dashed #bfdec5;
@@ -129,7 +119,6 @@
             font-weight: 600;
             color: #3b6e4a;
             letter-spacing: -0.3px;
-            display: inline-block;
             background: linear-gradient(135deg, #457b5a, #6aa97e);
             background-clip: text;
             -webkit-background-clip: text;
@@ -142,7 +131,7 @@
             font-size: 1rem;
         }
 
-        /* 卡片列表布局（主页与分类通用） */
+        /* 卡片列表 */
         .posts-grid {
             display: flex;
             flex-direction: column;
@@ -156,6 +145,7 @@
             transition: transform 0.2s, box-shadow 0.2s;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
             border: 1px solid rgba(190, 222, 170, 0.5);
+            cursor: pointer;
         }
 
         .post-card:hover {
@@ -164,25 +154,75 @@
             box-shadow: 0 18px 28px -12px rgba(82, 112, 84, 0.2);
         }
 
-        .post-title {
-            font-size: 1.7rem;
-            font-weight: 600;
+        /* 文章详情区域样式 */
+        .detail-container {
+            background: rgba(255, 254, 250, 0.92);
+            border-radius: 40px;
+            padding: 2rem;
+        }
+
+        .detail-header {
+            margin-bottom: 1.8rem;
+            border-bottom: 2px solid #cde2d2;
+            padding-bottom: 1rem;
+        }
+
+        .detail-title {
+            font-size: 2.3rem;
             color: #2a6742;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
+            font-weight: 700;
         }
 
-        .post-meta {
-            font-size: 0.85rem;
-            color: #8aa389;
-            margin-bottom: 0.9rem;
+        .detail-meta {
             display: flex;
-            gap: 1rem;
+            gap: 1.2rem;
+            color: #7f9a7a;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
         }
 
+        .detail-content {
+            font-size: 1.1rem;
+            line-height: 1.75;
+            color: #2c4d34;
+            background: #fafef5c9;
+            padding: 1.8rem;
+            border-radius: 32px;
+            margin: 1rem 0 1.5rem;
+            white-space: pre-wrap;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #e3f0e6;
+            padding: 0.6rem 1.2rem;
+            border-radius: 60px;
+            color: #2c7a4d;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+            margin-top: 1rem;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            background: #cbe5d4;
+            transform: translateX(-4px);
+        }
+
+        .post-title,
         .post-excerpt {
-            color: #3c5a42;
-            line-height: 1.5;
-            font-size: 1rem;
+            transition: all 0.1s;
+        }
+
+        .post-card .post-title {
+            cursor: pointer;
         }
 
         .tag {
@@ -195,7 +235,6 @@
             margin-right: 0.6rem;
         }
 
-        /* 关于页面 专属样式 */
         .about-section {
             display: flex;
             flex-direction: column;
@@ -222,7 +261,6 @@
             line-height: 1.7;
         }
 
-        /* 分类页面里的分类标签云风格 */
         .categories-list {
             display: flex;
             flex-wrap: wrap;
@@ -241,20 +279,16 @@
             backdrop-filter: blur(4px);
         }
 
-        .category-chip:hover, .category-chip.active-cat {
+        .category-chip:hover,
+        .category-chip.active-cat {
             background: #9fd0ae;
             color: #fff3e0;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
-        /* 响应式：小屏幕时左侧导航不再 sticky，改为水平排列或顶部导航 */
         @media (max-width: 780px) {
-            body {
-                padding: 20px 16px;
-            }
-            .blog-container {
-                flex-direction: column;
-            }
+            body { padding: 20px 16px; }
+            .blog-container { flex-direction: column; }
             .nav-sidebar {
                 flex: auto;
                 position: static;
@@ -263,29 +297,10 @@
                 backdrop-filter: blur(16px);
                 padding: 1rem 1rem;
             }
-            .nav-menu {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 0.8rem;
-            }
-            .nav-link {
-                font-size: 1.2rem;
-                padding: 0.4rem 1rem;
-            }
-            .blog-main {
-                padding: 1.5rem;
-            }
-            .post-title {
-                font-size: 1.4rem;
-            }
-        }
-
-        /* 装饰小元素 */
-        .leaf-icon {
-            font-size: 0.9rem;
-            display: inline-block;
-            margin-right: 4px;
+            .nav-menu { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 0.8rem; }
+            .nav-link { font-size: 1.2rem; padding: 0.4rem 1rem; }
+            .blog-main { padding: 1.5rem; }
+            .detail-title { font-size: 1.8rem; }
         }
 
         footer {
@@ -296,44 +311,34 @@
             border-top: 1px solid #cae1ce;
             padding-top: 1.2rem;
         }
+
+        button, .category-chip, .post-card {
+            user-select: none;
+        }
     </style>
 </head>
 <body>
 
 <div class="blog-container">
-    <!-- 左侧奶白色半透明导航栏 -->
     <aside class="nav-sidebar">
         <ul class="nav-menu">
-            <li class="nav-item">
-                <a href="#" class="nav-link" data-page="home">🏡 主页</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link" data-page="about">📖 关于</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link" data-page="categories">🏷️ 分类</a>
-            </li>
+            <li class="nav-item"><a class="nav-link" data-page="home">🏡 主页</a></li>
+            <li class="nav-item"><a class="nav-link" data-page="about">📖 关于</a></li>
+            <li class="nav-item"><a class="nav-link" data-page="categories">🏷️ 分类</a></li>
         </ul>
-        <!-- 增加一点可爱的小装饰 -->
         <div style="margin-top: 2rem; text-align:center; opacity:0.6; font-size:0.75rem;">
             <span>🍃 浅绿时光</span>
         </div>
     </aside>
 
-    <!-- 中央部落格主要内容 -->
     <main class="blog-main" id="blogMain">
-        <!-- 动态内容会渲染在此处 -->
-        <div id="dynamicContent" class="content-pane">
-            <!-- 默认载入主页内容 -->
-        </div>
-        <footer>
-            🌱 记录日常灵感 · 慢享生活之美
-        </footer>
+        <div id="dynamicContent" class="content-pane"></div>
+        <footer>🌱 记录日常灵感 · 慢享生活之美</footer>
     </main>
 </div>
 
 <script>
-    // 定义部落格数据 (文章用于主页及分类展示)
+    // ---------- 丰富的博客内容数据 (增加完整详情正文) ----------
     const postsData = [
         {
             id: 1,
@@ -341,6 +346,7 @@
             date: "2026年5月2日",
             category: "生活随笔",
             excerpt: "浅绿色的午后，空气里漂浮着薄荷香气。坐在窗边，敲下第一行字，愿每一刻都像马卡龙一样柔软。",
+            fullContent: "初夏的阳光透过百叶窗，在地板上画出斜斜的格子。窗台上的薄荷散发着让人安心的气息，空气里漂浮着马卡龙般的甜梦。\n\n我坐在书桌前，打开这个全新的部落格。指尖敲击键盘的声音像极了初夏的雨点，轻快又治愈。今天想和你聊聊“慢生活”：把脚步放慢一些，才能看见叶片上的露珠，才能听见风穿过树梢时的低语。马卡龙色系的温柔，不仅是视觉的甜，更是一种对待日常的态度——轻盈、包容、自然。\n\n愿我们都能在快节奏的世界里，为自己保留一抹浅绿的角落。",
             tags: ["治愈", "日常"]
         },
         {
@@ -349,6 +355,7 @@
             date: "2026年4月28日",
             category: "设计灵感",
             excerpt: "半透明导航栏如何营造轻盈感？今天分享关于朦胧UI和自然色系的搭配心得与一个小技巧。",
+            fullContent: "在设计这个部落格的时候，我一直在思考：如何让界面既拥有现代感，又不失温柔？\n\n答案就藏在了“奶白色半透明”与“浅绿氛围”的平衡里。左侧导航栏使用了 backdrop-filter: blur(12px) 和 rgba(255,248,235,0.75)，它像是覆了一层薄薄的奶油，背景若隐若现，却不会干扰阅读。搭配中央区的毛玻璃效果，整体呈现出呼吸感。还有一个小建议：半透明元素的对比度要足够，文字颜色选用深绿色（#3b5c3e），确保可读性。\n\n希望这个小技巧能给你带来灵感，一起创造有温度的界面。",
             tags: ["UI设计", "前端美学"]
         },
         {
@@ -357,6 +364,7 @@
             date: "2026年4月20日",
             category: "阅读",
             excerpt: "‘我愿深扎入生活，吮尽生命的骨髓。’ 慢下来，在字里行间找到宁静的角落，推荐给所有向往自然的朋友。",
+            fullContent: "最近重读了梭罗的《瓦尔登湖》，有一段话特别打动我：“我愿深扎入生活，吮尽生命的骨髓，过得扎实，简单，把一切不属于生活的内容剔除得干净利落。”\n\n在森林、湖泊和四季更迭中，他找到了最本真的快乐。读这本书时，我常常会为自己泡一杯茶，然后静静地写几段随想。书里那种对自然的敬畏、对简朴的赞美，与我所追求的马卡龙生活哲学不谋而合。\n\n推荐给每一个在都市里渴望宁静的灵魂，愿你在书页间，也能寻到一片属于自己的湖。",
             tags: ["读书", "哲思"]
         },
         {
@@ -365,6 +373,7 @@
             date: "2026年4月12日",
             category: "技术分享",
             excerpt: "backdrop-filter 和半透明背景的结合，只需几行代码就能营造出柔和、现代的视觉风格。附赠配色方案。",
+            fullContent: "Glassmorphism（玻璃拟态）是这两年备受欢迎的设计趋势。实现它其实很简单：背景模糊 + 半透明层 + 微妙边框。\n\n核心代码：background: rgba(255, 248, 235, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,252,240,0.6); 再配合 box-shadow 增加层次感。需要注意避免模糊过度影响文字辨识，同时背景图片或渐变要足够柔和。\n\n我还搭配了浅绿色渐变背景（#d4f1e9 → #b9e4d3），让整个页面像甜点一样清爽。不妨在你的项目里试一试，用几行CSS让界面焕然一新。",
             tags: ["CSS", "前端"]
         },
         {
@@ -373,6 +382,7 @@
             date: "2026年4月5日",
             category: "设计灵感",
             excerpt: "收集了10组低饱和度治愈色值，让你的设计甜而不腻。浅绿、樱花粉、奶油白……",
+            fullContent: "马卡龙色系不仅仅是一种配色风格，它更像是一种情绪表达。我整理了自己最常用的10组治愈色值：\n\n🌿 浅草绿：#d4f1e9, #b9e4d3\n🍰 奶油白：#fff8eb, #fef7e6\n🌸 樱花粉：#ffe5f1, #ffd9e8\n🍃 鼠尾草：#bdd9bf, #a6c9aa\n\n将这些颜色应用于插画、UI或家居设计，都可以营造出干净美好的氛围。记得保持低饱和度，让视觉长时间观看也不会疲惫。希望这个调色盘能给你带来新的创作思路～",
             tags: ["色彩美学", "设计"]
         },
         {
@@ -381,32 +391,74 @@
             date: "2026年3月28日",
             category: "生活随笔",
             excerpt: "阳光透过绿叶，斑驳洒在小径上。和朋友聊起未来与梦想，记录这份轻快的春天记忆。",
+            fullContent: "周末和好友约在了城郊的植物园。阳光温温柔柔地穿过树叶，在地上投下斑驳的光影。玉兰花已经开了大半，空气里有泥土和青草混合的香气。\n\n我们聊起了最近读的书、未来的计划，还有关于“热爱”这件事。朋友说，能拥有一件让自己投入的事情很珍贵。我想到这个部落格，也许它就是我热爱的容器。\n\n回去的路上买了两个抹茶马卡龙，淡淡的甜，像极了今天的心情。想把这份春日的轻盈，也分享给你。",
             tags: ["生活", "随想"]
         }
     ];
 
-    // 获取所有分类 (去重)
+    // 辅助: 获取所有分类
     function getAllCategories() {
         const cats = postsData.map(post => post.category);
         return [...new Set(cats)];
     }
 
-    // 根据分类过滤文章
     function getPostsByCategory(category) {
         if (!category || category === '全部') return postsData;
         return postsData.filter(post => post.category === category);
     }
 
-    // ---------- 渲染主页 (显示全部文章列表) ----------
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // 渲染文章详情 (全新页面)
+    function renderDetailPage(postId) {
+        const post = postsData.find(p => p.id == postId);
+        if (!post) return renderHome(); // fallback
+        
+        const fullHtml = `
+            <div class="detail-container">
+                <div class="detail-header">
+                    <h1 class="detail-title">${escapeHtml(post.title)}</h1>
+                    <div class="detail-meta">
+                        <span>📅 ${escapeHtml(post.date)}</span>
+                        <span>🏷️ ${escapeHtml(post.category)}</span>
+                    </div>
+                    <div style="margin-top: 0.5rem;">
+                        ${post.tags.map(tag => `<span class="tag">#${escapeHtml(tag)}</span>`).join('')}
+                    </div>
+                </div>
+                <div class="detail-content">
+                    ${escapeHtml(post.fullContent).replace(/\n/g, '<br>')}
+                </div>
+                <button class="back-link" id="backToPreviousBtn"> ← 返回${currentArchivePage === 'categories' ? '分类' : '主页'}</button>
+            </div>
+        `;
+        return fullHtml;
+    }
+
+    // 状态管理
+    let currentPage = 'home';       // 'home', 'about', 'categories', 'detail'
+    let currentDetailId = null;
+    let currentSelectedCategory = "全部";
+    let currentArchivePage = 'home'; // 用于返回时记录之前的页面 (主页还是分类)
+    
+    // 渲染主页 (卡片带链接)
     function renderHome() {
         return `
             <div class="blog-header">
                 <h1>✨ 浅绿拾光录</h1>
-                <p>记录灵感，沉淀柔软时光</p>
+                <p>记录灵感，沉淀柔软时光 · 点击卡片阅读全文</p>
             </div>
             <div class="posts-grid">
                 ${postsData.map(post => `
-                    <article class="post-card">
+                    <article class="post-card" data-id="${post.id}">
                         <h2 class="post-title">${escapeHtml(post.title)}</h2>
                         <div class="post-meta">
                             <span>📅 ${escapeHtml(post.date)}</span>
@@ -416,13 +468,13 @@
                         <div style="margin-top:12px">
                             ${post.tags.map(tag => `<span class="tag">#${escapeHtml(tag)}</span>`).join('')}
                         </div>
+                        <div style="margin-top: 12px; font-size:0.8rem; color:#8aa389;">🔗 点击阅读更多 →</div>
                     </article>
                 `).join('')}
             </div>
         `;
     }
 
-    // ---------- 关于页面 ----------
     function renderAbout() {
         return `
             <div class="blog-header">
@@ -430,9 +482,7 @@
                 <p>温柔的力量，生长于日常</p>
             </div>
             <div class="about-section">
-                <div class="about-avatar">
-                    🌿
-                </div>
+                <div class="about-avatar">🌿</div>
                 <div class="about-text">
                     <p>你好，我是小绿。一个热爱自然、设计与文字的创作者。</p>
                     <p style="margin-top: 1rem;">🍃 这个部落格建立于2026年初夏，我希望用马卡龙般治愈的视觉与真诚的文字，分享生活中的设计、阅读、旅途与细微感动。半透明导航栏正如我内心通透的向往——柔和但有边界，留白处皆有呼吸。</p>
@@ -446,20 +496,16 @@
         `;
     }
 
-    // 分类页面（默认展示所有文章分类筛选）
-    let currentSelectedCategory = "全部";
-    
     function renderCategories() {
         const allCategories = getAllCategories();
         const filteredPosts = getPostsByCategory(currentSelectedCategory === "全部" ? null : currentSelectedCategory);
         
-        // 动态生成分类标签HTML
-        const categoriesHtml = `
+        return `
             <div class="blog-header">
                 <h1>📂 文章分类</h1>
-                <p>按分类探索 · 品读慢时光</p>
+                <p>按分类探索 · 点击卡片阅读完整文章</p>
             </div>
-            <div class="categories-list">
+            <div class="categories-list" id="categoriesChipList">
                 <span class="category-chip ${currentSelectedCategory === "全部" ? 'active-cat' : ''}" data-cat="全部">📌 全部</span>
                 ${allCategories.map(cat => `
                     <span class="category-chip ${currentSelectedCategory === cat ? 'active-cat' : ''}" data-cat="${escapeHtml(cat)}">${escapeHtml(cat)}</span>
@@ -468,7 +514,7 @@
             <div class="posts-grid" id="categoryPostsContainer">
                 ${filteredPosts.length === 0 ? `<div style="padding: 2rem; text-align:center; background: #f8faf0; border-radius: 2rem;">✨ 这个分类下还没有文章，期待未来的灵感～</div>` : 
                     filteredPosts.map(post => `
-                        <article class="post-card">
+                        <article class="post-card" data-id="${post.id}">
                             <h2 class="post-title">${escapeHtml(post.title)}</h2>
                             <div class="post-meta">
                                 <span>📅 ${escapeHtml(post.date)}</span>
@@ -478,131 +524,111 @@
                             <div style="margin-top:12px">
                                 ${post.tags.map(tag => `<span class="tag">#${escapeHtml(tag)}</span>`).join('')}
                             </div>
+                            <div style="margin-top: 12px; font-size:0.8rem; color:#8aa389;">🔗 点击阅读更多 →</div>
                         </article>
                     `).join('')
                 }
             </div>
         `;
-        
-        // 为了给分类chip绑定事件，返回HTML字符串后，等待内容渲染完毕添加事件委托
-        return categoriesHtml;
-    }
-    
-    // 简单的防XSS辅助
-    function escapeHtml(str) {
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-            return c;
-        });
     }
 
-    // 页面状态管理 & 高亮导航栏
-    let currentPage = 'home'; // home, about, categories
-
-    // 渲染主内容并绑定分类页面的动态事件
-    function renderPage(page) {
+    // 核心渲染 + 事件绑定 (卡片点击、分类筛选、返回按钮)
+    function renderPage(page, detailId = null, fromArchive = null) {
         const contentDiv = document.getElementById('dynamicContent');
         let html = '';
-        if (page === 'home') {
+        
+        if (page === 'detail' && detailId) {
+            html = renderDetailPage(detailId);
+            currentDetailId = detailId;
+            currentPage = 'detail';
+        } else if (page === 'home') {
             html = renderHome();
+            currentPage = 'home';
+            currentDetailId = null;
+            currentArchivePage = 'home';
         } else if (page === 'about') {
             html = renderAbout();
+            currentPage = 'about';
+            currentDetailId = null;
         } else if (page === 'categories') {
             html = renderCategories();
+            currentPage = 'categories';
+            currentDetailId = null;
+            currentArchivePage = 'categories';
+        } else {
+            html = renderHome();
+            currentPage = 'home';
         }
-        contentDiv.innerHTML = html;
-        currentPage = page;
         
-        // 高亮当前导航菜单
+        contentDiv.innerHTML = html;
+        
+        // 高亮导航栏
         document.querySelectorAll('.nav-link').forEach(link => {
             const pageVal = link.getAttribute('data-page');
-            if ((pageVal === 'home' && page === 'home') ||
-                (pageVal === 'about' && page === 'about') ||
-                (pageVal === 'categories' && page === 'categories')) {
+            if ((pageVal === 'home' && currentPage === 'home') ||
+                (pageVal === 'about' && currentPage === 'about') ||
+                (pageVal === 'categories' && currentPage === 'categories')) {
                 link.classList.add('active');
             } else {
                 link.classList.remove('active');
             }
         });
         
-        // 如果当前是分类页面，需要绑定分类筛选按钮点击事件 (事件委托方式或者主动绑定)
-        if (page === 'categories') {
-            // 绑定分类chip的事件，因为chip是动态生成的，使用事件委托到#dynamicContent上（或者直接在父级监听）
-            const container = document.getElementById('dynamicContent');
-            // 先移除原有的监听器避免重复绑定, 使用新的事件监听方式 (但可以使用once或每次重新挂载)
-            // 直接使用全局委托监听，但避免多个重复，可用命名函数，但最简单重新绑定。
-            // 移除原先的委托（如果有储存旧监听器，简单起见只添加一个新监听, 但可能多个，但无伤大雅，使用命名函数并先移除）
-            if (window._categoryListener) {
-                container.removeEventListener('click', window._categoryListener);
-            }
-            const categoryHandler = (e) => {
-                // 获取实际点击的分类chip
-                let target = e.target.closest('.category-chip');
-                if (!target) return;
-                const catValue = target.getAttribute('data-cat');
-                if (catValue) {
-                    currentSelectedCategory = catValue;
-                    // 重新渲染分类页面但保留选中的分类状态
-                    const newHtml = renderCategories();
-                    contentDiv.innerHTML = newHtml;
-                    // 重新绑定高亮效果: 再次绑定事件, 递归调用会导致自身又被删除监听？ 需要重新绑定监听。
-                    // 重新绑定新的监听器（因为innerHTML后dom更新了）
-                    attachCategoryEvents(contentDiv);
-                    // 同时还要保持导航高亮
-                    document.querySelectorAll('.nav-link').forEach(link => {
-                        const pageVal = link.getAttribute('data-page');
-                        if (pageVal === 'categories') link.classList.add('active');
-                        else link.classList.remove('active');
-                    });
-                    // 滚动到顶部一点小优化
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+        // ---- 绑定卡片点击事件 (阅读详情) ----
+        const cards = document.querySelectorAll('.post-card');
+        cards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                // 防止点到内部标签冒泡干扰（不需要阻止冒泡，但有data-id即可）
+                const postId = card.getAttribute('data-id');
+                if (postId) {
+                    // 保存当前是在主页还是分类页面，以决定返回按钮文本
+                    if (currentPage === 'home') currentArchivePage = 'home';
+                    else if (currentPage === 'categories') currentArchivePage = 'categories';
+                    renderPage('detail', parseInt(postId));
                 }
-            };
-            window._categoryListener = categoryHandler;
-            container.addEventListener('click', window._categoryListener);
-        } else {
-            // 如果不是分类页面，移除分类监听器避免冲突
-            if (window._categoryListener) {
-                const container = document.getElementById('dynamicContent');
-                if (container) container.removeEventListener('click', window._categoryListener);
-                window._categoryListener = null;
+            });
+        });
+        
+        // ---- 分类页面下的筛选芯片事件 (动态绑定) ----
+        if (currentPage === 'categories') {
+            const chipsContainer = document.getElementById('categoriesChipList');
+            if (chipsContainer) {
+                // 使用事件委托方式绑定分类点击
+                const chipHandler = (e) => {
+                    let target = e.target.closest('.category-chip');
+                    if (!target) return;
+                    const catValue = target.getAttribute('data-cat');
+                    if (catValue) {
+                        currentSelectedCategory = catValue;
+                        renderPage('categories');  // 重新渲染分类页面
+                    }
+                };
+                // 移除旧的监听避免重复
+                if (window._chipListener) chipsContainer.removeEventListener('click', window._chipListener);
+                window._chipListener = chipHandler;
+                chipsContainer.addEventListener('click', window._chipListener);
             }
+        }
+        
+        // ---- 处理详情页的返回按钮 (使用事件监听，确保按钮存在) ----
+        const backBtn = document.getElementById('backToPreviousBtn');
+        if (backBtn && currentPage === 'detail') {
+            // 移除原有监听避免重复
+            const newBackBtn = backBtn.cloneNode(true);
+            backBtn.parentNode.replaceChild(newBackBtn, backBtn);
+            newBackBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                // 返回到之前存档的页面 (home 或 categories)
+                if (currentArchivePage === 'categories') {
+                    renderPage('categories');
+                } else {
+                    renderPage('home');
+                }
+            });
         }
     }
     
-    // 辅助函数，为分类页面重新绑定事件（在分类内部筛选点击后再次调用）
-    function attachCategoryEvents(container) {
-        if (!container) return;
-        if (window._categoryListener) {
-            container.removeEventListener('click', window._categoryListener);
-        }
-        const categoryHandler = (e) => {
-            let target = e.target.closest('.category-chip');
-            if (!target) return;
-            const catValue = target.getAttribute('data-cat');
-            if (catValue) {
-                currentSelectedCategory = catValue;
-                const newHtml = renderCategories();
-                container.innerHTML = newHtml;
-                attachCategoryEvents(container);
-                // 重新高亮导航栏（分类页面状态）
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    const pageVal = link.getAttribute('data-page');
-                    if (pageVal === 'categories') link.classList.add('active');
-                    else link.classList.remove('active');
-                });
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        };
-        window._categoryListener = categoryHandler;
-        container.addEventListener('click', window._categoryListener);
-    }
-    
-    // 导航点击处理
+    // 导航栏点击处理
     function setupNavigation() {
         const navLinks = document.querySelectorAll('.nav-link');
         navLinks.forEach(link => {
@@ -610,24 +636,24 @@
                 e.preventDefault();
                 const page = link.getAttribute('data-page');
                 if (page === 'home') {
-                    currentSelectedCategory = "全部"; // 重置分类筛选状态
+                    currentSelectedCategory = "全部";
+                    currentArchivePage = 'home';
                     renderPage('home');
                 } else if (page === 'about') {
                     renderPage('about');
                 } else if (page === 'categories') {
-                    currentSelectedCategory = "全部"; // 重置分类筛选到全部
+                    currentSelectedCategory = "全部";
+                    currentArchivePage = 'categories';
                     renderPage('categories');
                 }
-                // 可选滚动到顶部
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         });
     }
     
-    // 初始加载默认展示主页
     function init() {
         setupNavigation();
-        renderPage('home'); // 主页初始
+        renderPage('home'); 
     }
     
     init();
