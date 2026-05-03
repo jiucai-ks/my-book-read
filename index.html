@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的书 - 个人部落格</title>
+    <style>
+        /* 全局样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        /* 页面基础样式 - 浅绿色主题 */
+        body {
+            background-color: #f8fff8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* 导航栏 */
+        nav {
+            background-color: #d1f0d1;
+            padding: 18px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #2d5a2d;
+        }
+
+        .nav-links a {
+            margin-left: 25px;
+            text-decoration: none;
+            color: #2d5a2d;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #4a914a;
+        }
+
+        /* 头部横幅 */
+        .header-banner {
+            background-color: #e6f7e6;
+            text-align: center;
+            padding: 50px 20px;
+            margin-bottom: 40px;
+        }
+
+        .header-banner h1 {
+            font-size: 42px;
+            color: #2d5a2d;
+            margin-bottom: 10px;
+        }
+
+        .header-banner p {
+            font-size: 18px;
+            color: #557c55;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* 主内容容器 */
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 30px;
+        }
+
+        /* 文章卡片样式（部落格核心） */
+        .article-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+            border-left: 5px solid #a3e4a3;
+        }
+
+        .article-title {
+            font-size: 24px;
+            color: #2d5a2d;
+            margin-bottom: 10px;
+        }
+
+        .article-meta {
+            color: #7a9d7a;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .article-content {
+            color: #444;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* 侧边栏 */
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+            height: fit-content;
+        }
+
+        .sidebar h3 {
+            color: #2d5a2d;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e6f7e6;
+        }
+
+        .book-list {
+            list-style: none;
+        }
+
+        .book-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            color: #3d6b3d;
+        }
+
+        /* 页脚 */
+        footer {
+            background-color: #d1f0d1;
+            text-align: center;
+            padding: 25px 0;
+            margin-top: 50px;
+            color: #2d5a2d;
+        }
+
+        /* 响应式适配手机 */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .nav-links a {
+                margin: 0 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">我的书</div>
+            <div class="nav-links">
+                <a href="#">首页</a>
+                <a href="#">书籍推荐</a>
+                <a href="#">读书笔记</a>
+                <a href="#">关于我</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 头部横幅 -->
+    <div class="header-banner">
+        <h1>我的书 · 个人部落格</h1>
+        <p>记录读过的每一本书，写下心中的感悟，在文字里遇见更好的自己</p>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="container">
+        <!-- 文章列表 -->
+        <main>
+            <div class="article-card">
+                <h2 class="article-title">《活着》读后感：生命最本真的力量</h2>
+                <div class="article-meta">发布时间：2025-01-10 | 分类：读书笔记</div>
+                <div class="article-content">
+                    人是为了活着本身而活着，而不是为了活着之外的任何事物而活着。读完余华的《活着》，内心被深深触动，苦难与坚韧交织，让我们明白生命的意义不在于轰轰烈烈，而在于平凡的坚守...
+                </div>
+            </div>
+
+            <div class="article-card">
+                <h2 class="article-title">2025年最值得读的5本成长类书籍</h2>
+                <div class="article-meta">发布时间：2025-01-05 | 分类：书籍推荐</div>
+                <div class="article-content">
+                    新的一年，用阅读充实自己。精选5本提升认知、治愈心灵的成长书籍，适合所有想要变得更好的人。每一本都能带给你新的思考与力量...
+                </div>
+            </div>
+
+            <div class="article-card">
+                <h2 class="article-title">阅读，是最低成本的自我提升</h2>
+                <div class="article-meta">发布时间：2024-12-28 | 分类：随笔感悟</div>
+                <div class="article-content">
+                    脚步不能到达的地方，文字可以；眼睛看不到的风景，书籍可以。坚持阅读多年，它悄悄改变了我的心态、眼界与生活，这是最温柔也最强大的成长方式...
+                </div>
+            </div>
+        </main>
+
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <h3>我的书架</h3>
+            <ul class="book-list">
+                <li>📖 《活着》- 余华</li>
+                <li>📖 《小王子》- 安托万</li>
+                <li>📖 《平凡的世界》- 路遥</li>
+                <li>📖 《解忧杂货店》- 东野圭吾</li>
+                <li>📖 《月亮与六便士》- 毛姆</li>
+            </ul>
+        </aside>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>© 2025 我的书 - 个人阅读部落格 | 所有文字均为原创感悟</p>
+    </footer>
+</body>
+</html>
